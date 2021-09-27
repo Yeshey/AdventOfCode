@@ -17,23 +17,24 @@ def print_forest2 (forest: list):
                     print(ch, end='')
         print()
 
-def day3 (forest: list):
+def day3 (forest: list,right,down) -> int:
     """Puzzles
     """
     trees = int(0)
     right_displacement = int(0)
-    i = 0
+    lineNumber = 0
     for line in forest:
-        i += 1
-        line_lenght = len(line)-1
-        if right_displacement >= line_lenght:
-            right_displacement = right_displacement-line_lenght
-        ch = line[right_displacement]
-        print(ch,right_displacement, end='')
-        if ch == '#':
-            trees += 1 
-        right_displacement += 3
-    print("Home free!")
+        if lineNumber % down == 0:
+            line_lenght = len(line)-1
+            if right_displacement >= line_lenght:
+                right_displacement = right_displacement-line_lenght
+            ch = line[right_displacement]
+            #print(ch,right_displacement, end='')
+            if ch == '#':
+                trees += 1 
+            right_displacement += right
+        lineNumber += 1
+    # print("Home free!")
     return trees
 
 forest = list()
@@ -44,4 +45,5 @@ with open("input.txt",'r') as f:
 
 #print_forest(forest)
 #print_forest(forest)
-print (day3(forest))
+print ("puzzle 1 =", day3(forest,3,1))
+print("puzzle 2 = ", day3(forest,1,1), "*", day3(forest,3,1), "*", day3(forest,5,1), "*", day3(forest,7,1), "*", day3(forest,1,2), "=", day3(forest,1,1)*day3(forest,3,1)*day3(forest,5,1)*day3(forest,7,1)*day3(forest,1,2))
