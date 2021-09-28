@@ -1,7 +1,3 @@
-'''
-PEP Python 
-'''
-
 def p1(numbers: list) -> int:
     for something1 in numbers:
         for something2 in numbers:
@@ -14,7 +10,7 @@ def p2(numbers):
         for something2 in numbers:
             for somethin3 in  numbers:
                 if something1 + something2 + somethin3 == 2020:
-                    return ([something1,something2,somethin3])
+                    return ([something1,something2,somethin3])  # returns tuple list?
     return 0
 
 if __name__ == '__main__':
