@@ -39,7 +39,7 @@ def day3 (forest: list,right,down) -> int:
 
 forest = list()
 # or forest = []
-with open("input.txt",'r') as f:
+with open("../input.txt",'r') as f:
     for line in f:
         forest.append(line)
 
