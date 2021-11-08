@@ -1,4 +1,5 @@
 '''
+Things to see & study:
 PEP Python 
 Tuple, set, dictonary
 - Dont use numbers to name variables
