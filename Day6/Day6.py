@@ -44,6 +44,5 @@ if __name__ == '__main__':
             else:
                 answers[i].append(line[:-1])
 
-
     print("Problem1 - ", day6_p1(answers))
     print("problem2 - ", day6_p2(answers))
