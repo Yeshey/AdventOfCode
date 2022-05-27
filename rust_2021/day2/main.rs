@@ -10,11 +10,11 @@ fn main() -> io::Result<()> {
 
     // Day 2 Part 1
     let (depth, horizontal_distance) = day2_p1(file_path);
-    println!("depth: {} * horizontal_distance: {} = {}", depth, horizontal_distance, depth*&horizontal_distance);
+    println!("Part1: depth: {} * horizontal_distance: {} = {}", depth, horizontal_distance, depth*&horizontal_distance);
 
     // Day 2 Part 2
     let (depth, horizontal_distance) = day2_p2(file_path);
-    println!("depth: {} * horizontal_distance: {} = {}", depth, horizontal_distance, depth*&horizontal_distance);
+    println!("Part2: depth: {} * horizontal_distance: {} = {}", depth, horizontal_distance, depth*&horizontal_distance);
 
     Ok(())
 }

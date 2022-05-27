@@ -9,5 +9,9 @@ edition = "2021"
 rand = "0.8.3"
 
 [[bin]]
-name = "client"
+name = "day2"
 path = "day2/main.rs"
+
+[[bin]]
+name = "day3"
+path = "day3/main.rs"
