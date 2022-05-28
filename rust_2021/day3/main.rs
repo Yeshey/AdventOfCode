@@ -12,10 +12,10 @@ epsilon_rate: {:#014b} = {}
 gamma_rate, gamma_rate, epsilon_rate, epsilon_rate, gamma_rate, epsilon_rate, gamma_rate*epsilon_rate);
 
     // Part 2
-    let (oxygen_generator_rating, CO2_scrubber_rating) = day3_p2(file_contents);
+    let (oxygen_generator_rating, CO2_scrubber_rating) = day3_p2(file_contents, false);
     println!("Part 2:
-oxygen_generator_rating:   {:#014b} = {}
-CO2_scrubber_rating: {:#014b} = {}
+oxygen_generator_rating: {:#014b} = {}
+CO2_scrubber_rating:     {:#014b} = {}
 {} * {} = {}", 
 oxygen_generator_rating, oxygen_generator_rating, CO2_scrubber_rating, CO2_scrubber_rating, oxygen_generator_rating, CO2_scrubber_rating, oxygen_generator_rating*CO2_scrubber_rating);}
 
@@ -67,7 +67,7 @@ fn day3_p1(file_contents: &str) -> (i32, i32){
     (gamma_rate, epsilon_rate)
 }
 
-fn day3_p2(mut file_contents: String) -> (u32, u32){
+fn day3_p2(mut file_contents: String, debugging: bool) -> (u32, u32){
     let num_of_bits= file_contents.lines()
         .nth(0).expect("couldn't get element 0, .expect better than .unwrap!")
         .len();
@@ -77,14 +77,26 @@ fn day3_p2(mut file_contents: String) -> (u32, u32){
     // oxygen
     for i in 0..num_of_bits {
         trimmed_file_contents.clear();
-        let most_common_bit = most_common_bit_in_column(&file_contents, i, 1);
+        let most_common_bit = most_common_bit_in_column(&file_contents, i);
+
+        if debugging {println!("\nmost common bit: {} in index {}", most_common_bit, i);}
+        if debugging {println!("kept numbers:\n-------------------------------\n");}
 
         for line in file_contents.lines(){
-            if line.chars().nth(i).unwrap().to_digit(10).unwrap() == most_common_bit as u32 {
+            if line.chars().nth(i).unwrap().to_digit(10).unwrap() == if most_common_bit == -1 {1} else {most_common_bit} as u32 {
                 trimmed_file_contents.push_str(line);
                 trimmed_file_contents.push('\n');
+
+                if debugging {
+                    println!("{}" , line);
+                    for _ in 0..i { print!(" "); }
+                    print!("^\n");
+                }
             }
         }
+
+        if debugging {print!("-------------------------------\n");}
+
         file_contents = trimmed_file_contents.clone();
     }
 
@@ -100,15 +112,33 @@ fn day3_p2(mut file_contents: String) -> (u32, u32){
     file_contents = file_contents2;
     for i in 0..num_of_bits {
         trimmed_file_contents.clear();
-        let most_common_bit = most_common_bit_in_column(&file_contents, i, 0);
+        let most_common_bit = most_common_bit_in_column(&file_contents, i);
+
+        if debugging {println!("\nmost common bit: {} in index {}", most_common_bit, i);}
+        if debugging {println!("kept numbers:\n-------------------------------\n");}
 
         for line in file_contents.lines(){
-            if line.chars().nth(i).unwrap().to_digit(10).unwrap() == most_common_bit as u32 {
+            if line.chars().nth(i).unwrap().to_digit(10).unwrap() == if most_common_bit == -1 {0} else { if most_common_bit==0 {1} else {0} } as u32 && file_contents.len()>1{
                 trimmed_file_contents.push_str(line);
                 trimmed_file_contents.push('\n');
+
+                if debugging {
+                    println!("{}" , line);
+                    for _ in 0..i { print!(" "); }
+                    print!("^\n");
+                }
             }
         }
+
+        if debugging {print!("-------------------------------\n");}
+
         file_contents = trimmed_file_contents.clone();
+
+        if debugging {println!("Number of lines in buffer: {}", file_contents.lines().count());}
+
+        if file_contents.lines().count() == 1 {
+            break;
+        }
     }
 
     remove_all_thats_not_a_0_or_a_1(&mut file_contents);
@@ -122,7 +152,7 @@ fn day3_p2(mut file_contents: String) -> (u32, u32){
     (oxygen_generator_rating,CO2_scrubber_rating)
 }
 
-fn most_common_bit_in_column(file_contents: &str, index: usize, preference: i32) -> i32 {
+fn most_common_bit_in_column(file_contents: &str, index: usize) -> i32 {
     let mut num_of_1s = 0;
     let mut num_of_rows = 0;
 
@@ -137,7 +167,7 @@ fn most_common_bit_in_column(file_contents: &str, index: usize, preference: i32)
     } else if num_of_1s < num_of_rows / 2 {
         return 0;
     } else {
-        return preference;
+        return -1;
     }
 }
 
