@@ -6,7 +6,7 @@ main = do
   input <- readFile "input.txt"
   --let numbers = map read (lines input)
   let numbers = [read x | x <- lines input] -- list comprehension
-  --let results = map (\x -> (x `div` 3) - 2) numbers
+  --let results = map (\x -> (x `div` 3) - 2) numbers -- this is a lambda
   let results = [(x `div` 3) - 2 | x <- numbers] -- list comprehension
   let sum = foldl (+) 0 results
   putStrLn (show results)
