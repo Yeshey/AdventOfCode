@@ -19,7 +19,8 @@
             echo "Welcome to the Haskell development environment!"
             ghc Main.hs -o hello
             ./hello
-            git clean -fdx
+            echo "Run with:"
+            echo "ghc Main.hs -o hello && ./hello"
           '';
         };
       });
