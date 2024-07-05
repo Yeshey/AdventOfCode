@@ -21,6 +21,7 @@
             ./hello
             echo "Run with:"
             echo "ghc Main.hs -o hello && ./hello"
+            git clean -fdx
           '';
         };
       });
