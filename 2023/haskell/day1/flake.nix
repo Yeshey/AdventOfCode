@@ -10,18 +10,23 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system; };
-        haskellPackages = pkgs.haskell.packages.ghc8107;
+        haskellPackages = pkgs.haskellPackages.ghc.withPackages (hp: [
+          hp.random # example adding package random
+        ]);
       in
       {
         devShell = pkgs.mkShell {
-          buildInputs = [ haskellPackages.ghc haskellPackages.cabal-install ];
+          buildInputs = [
+            haskellPackages
+            pkgs.cabal-install
+          ];
           shellHook = ''
             echo "Welcome to the Haskell development environment!"
-            ghc Main.hs -o hello
-            ./hello
+            #ghc Main.hs -o hello
+            #./hello
             echo "Run with:"
             echo "ghc Main.hs -o hello && ./hello"
-            git clean -fdx
+            #git clean -fdx
           '';
         };
       });
